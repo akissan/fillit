@@ -1,2 +1,2 @@
 all:
-	gcc main.c && .\a.exe
+	gcc main.c io.c -I. && ./a.out
