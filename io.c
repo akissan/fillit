@@ -13,52 +13,67 @@ int print_grid(unsigned short grid)
 	return (0);
 }
 
-
 short BIG_PRINT(t_ttr **ttrs, int count, short bnd)
 {
+	short i;
+	short j;
 	char **matrix = (char **)malloc(sizeof(char *) * bnd);
-	for (short i = 0; i < bnd; i++)
+
+	j = 0;
+	while (j < bnd)
 	{
-		matrix[i] = (char *)malloc(sizeof(char) * bnd);
-		for (short j = 0; j < bnd; j++)
+		matrix[j] = (char *)malloc(sizeof(char) * bnd);
+		i = 0;
+		while (i < bnd)
 		{
-			matrix[i][j] = '0';
+			matrix[j][i] = '0';
+			i++;
 		}
+		j++;
 	}
 
 	short ox;
 	short oy;
+	short c;
 
-	for (short c = 0; c < count; c++)
+	c = 0;
+	while (c < count)
 	{
 		ox = ttrs[c]->ox;
 		oy = ttrs[c]->oy;
-		for (short j = 0; j < ttrs[c]->h; j++)
+		j = 0;
+		while (j < ttrs[c]->h)
 		{
-			for (short i = 0; i < ttrs[c]->w; i++)
+			i = 0;
+			while (i < ttrs[c]->w)
 			{
 				if (getFromXY(ttrs[c]->grid, i, j))
 					matrix[i + ox][j + oy] = 'A' + c;
-				//printf("%c ", getFromXY(ttrs[c]->grid, i, j) ? 'A' + c : '0');
+				printf("%d ", getFromXY(ttrs[c]->grid, i, j));
+				i++;
 			}
-			//printf("\n");
+			j++;
+			printf("\n");
 		}
-		//printf("---\n");
+		c++;
 	}
 
-	for (short j = 0; j < bnd; j++)
+	j = 0;
+	while (j < bnd)
 	{
-		for (short i = 0; i < bnd; i++)
+		i = 0;
+		while (i < bnd)
 		{
-			printf("%c ", matrix[i][j]);
+			printf("%c ", matrix[j][i]);
+			i++;
 		}
+		j++;
 		printf("\n");
 	}
 	printf("\n");
 
 	return (0);
 }
-
 
 unsigned short *InitCols(unsigned short *cols)
 {
@@ -68,7 +83,6 @@ unsigned short *InitCols(unsigned short *cols)
 	cols[3] = (1 << 12) | (2 << 12) | (3 << 12) | (4 << 12);
 	return cols;
 }
-
 
 unsigned short grid_fill(char *str)
 {
